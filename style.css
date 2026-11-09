@@ -1,635 +1,631 @@
 /* ==========================================================================
-   PT Sumatera Kemasindo - Modern Digital Signage Stylesheet
-   Follows modern CSS best practices (layers, custom properties, logical units)
+   PT Sumatera Kemasindo - Digital Signage Stylesheet
+   Engineered for maximum compatibility across all digital signage players,
+   Android TV boxes, Kiosk WebViews, and modern desktop/mobile browsers.
    ========================================================================== */
 
-@layer reset, base, layout, components, utilities;
-
-@layer reset {
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  audio {
-    display: none !important;
-  }
-
-  button {
-    font: inherit;
-    color: inherit;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
+/* --------------------------------------------------------------------------
+   1. RESET & FOUNDATIONS (Broad compatibility without @layer)
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@layer base {
-  :root {
-    /* Palette Tokens */
-    --color-bg-dark: #02120b;
-    --color-emerald-deep: #052115;
-    --color-champagne-gold: #e2cca8;
-    --color-champagne-light: #faebd7;
-    --color-champagne-soft: #c8b598;
-    --color-sage-green: #90c497;
-    --color-sage-soft: #c3d6c8;
-    --color-online-green: #5eb784;
-    --color-white: #ffffff;
-    --color-glass-border: rgba(255, 255, 255, 0.12);
-    --color-glass-surface: rgba(26, 36, 30, 0.52);
-
-    /* Typography */
-    --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
-    /* Elevation & Shadows */
-    --shadow-card: 0 24px 60px -12px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset;
-    --shadow-pill: 0 8px 24px rgba(0, 0, 0, 0.35);
-
-    /* Transitions */
-    --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  body {
-    font-family: var(--font-primary);
-    background-color: var(--color-bg-dark);
-    color: var(--color-white);
-    min-height: 100vh;
-    min-height: 100dvh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    user-select: none;
-    -webkit-user-select: none;
-  }
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #02120b;
 }
 
-@layer layout {
-  /* Signage Frame Wrapper: Expands to 100% full browser width and height */
-  .signage-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-bg-dark);
-    overflow: hidden;
-  }
-
-  /* Main Screen: 100% Full-bleed width and height spanning the entire web page */
-  .signage-screen {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding-block: clamp(32px, 5vh, 52px);
-    padding-inline: clamp(16px, 4vw, 36px);
-    background-image: url('assets/inigambarnya.jpeg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    transition: background-image 0.6s var(--transition-smooth);
-  }
-
-  /* Background variations */
-  body[data-bg="building"] .signage-screen,
-  body:not([data-bg]) .signage-screen {
-    background-image: url('assets/inigambarnya.jpeg');
-  }
-
-  body[data-bg="factory"] .signage-screen,
-  body[data-bg="hd"] .signage-screen {
-    background-image: url('assets/bg-factory.jpg');
-  }
-
-  body[data-bg="original"] .signage-screen {
-    background-image: url('assets/bg-original.png');
-  }
-
-  /* Cinematic Vignette & Rich Emerald Color Grading Overlay */
-  .bg-gradient-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background:
-      radial-gradient(ellipse 90% 45% at 50% 10%, rgba(245, 190, 110, 0.14) 0%, transparent 65%),
-      linear-gradient(180deg, 
-        rgba(8, 22, 16, 0.40) 0%, 
-        rgba(5, 18, 13, 0.22) 35%, 
-        rgba(4, 28, 18, 0.75) 68%, 
-        rgba(2, 25, 15, 0.94) 88%,
-        rgba(1, 18, 11, 0.99) 100%
-      );
-  }
-
-  /* Warm industrial pendant light spill across the wide ceiling */
-  .spotlight-top {
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: clamp(280px, 50vw, 700px);
-    height: clamp(180px, 30vh, 320px);
-    background: radial-gradient(circle, rgba(255, 215, 145, 0.18) 0%, transparent 70%);
-    filter: blur(50px);
-    pointer-events: none;
-    z-index: 1;
-    transition: opacity 0.4s ease;
-  }
-
-  body[data-bg="building"] .spotlight-top {
-    opacity: 0.35;
-  }
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
-@layer components {
-  /* ========================================================================
-     1. Signage Toolbar (Floating Top Right for Audio / Settings)
-     ======================================================================== */
-  .signage-toolbar {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+/* --------------------------------------------------------------------------
+   2. DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  /* Palette Tokens */
+  --color-bg-dark: #02120b;
+  --color-emerald-deep: #052115;
+  --color-champagne-gold: #e2cca8;
+  --color-champagne-light: #faebd7;
+  --color-champagne-soft: #c8b598;
+  --color-sage-green: #90c497;
+  --color-sage-soft: #c3d6c8;
+  --color-online-green: #5eb784;
+  --color-white: #ffffff;
+  --color-glass-border: rgba(255, 255, 255, 0.14);
+  --color-glass-surface: rgba(22, 34, 27, 0.85);
 
-  .tool-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 9px;
-    border-radius: 9999px;
-    background: rgba(25, 35, 28, 0.70);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Typography with robust offline/system fallbacks */
+  --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 24px 60px -12px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset;
+  --shadow-pill: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* Transitions */
+  --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-bg-dark);
+  color: var(--color-white);
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. LAYOUT & SCREEN CONTAINER
+   -------------------------------------------------------------------------- */
+.signage-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg-dark);
+  overflow: hidden;
+}
+
+/* Full-bleed display spanning the entire browser / display screen */
+.signage-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
+  /* Fallback physical padding for older WebViews */
+  padding: 40px 24px 32px 24px;
+  padding-block: clamp(32px, 5vh, 52px);
+  padding-inline: clamp(16px, 4vw, 36px);
+  
+  background-image: url('assets/inigambarnya.jpeg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: background-image 0.6s var(--transition-smooth);
+}
+
+/* Background Variations */
+body[data-bg="building"] .signage-screen,
+body:not([data-bg]) .signage-screen {
+  background-image: url('assets/inigambarnya.jpeg');
+}
+
+body[data-bg="factory"] .signage-screen,
+body[data-bg="hd"] .signage-screen {
+  background-image: url('assets/bg-factory.jpg');
+}
+
+body[data-bg="original"] .signage-screen {
+  background-image: url('assets/bg-original.png');
+}
+
+/* Cinematic Vignette & Rich Color Grading Overlay */
+.bg-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 10%, rgba(245, 190, 110, 0.14) 0%, transparent 65%),
+    linear-gradient(180deg, 
+      rgba(8, 22, 16, 0.40) 0%, 
+      rgba(5, 18, 13, 0.22) 35%, 
+      rgba(4, 28, 18, 0.75) 68%, 
+      rgba(2, 25, 15, 0.94) 88%,
+      rgba(1, 18, 11, 0.99) 100%
+    );
+}
+
+/* Warm industrial pendant light spill across the ceiling */
+.spotlight-top {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  width: clamp(280px, 50vw, 700px);
+  height: 240px;
+  height: clamp(180px, 30vh, 320px);
+  background: radial-gradient(circle, rgba(255, 215, 145, 0.18) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+body[data-bg="building"] .spotlight-top {
+  opacity: 0.35;
+}
+
+/* --------------------------------------------------------------------------
+   4a. LIVE CLOCK WIDGET (Floating Top Left: WIB / UTC+7)
+   -------------------------------------------------------------------------- */
+.signage-clock-widget {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+}
+
+.clock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(25, 35, 28, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--color-champagne-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s var(--transition-smooth);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .clock-pill {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    color: var(--color-champagne-light);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    transition: all 0.25s var(--transition-smooth);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   }
+}
 
-  .tool-btn:hover {
-    background: rgba(45, 60, 50, 0.88);
-    border-color: rgba(226, 204, 168, 0.4);
-    transform: translateY(-1px);
-    color: #ffffff;
-  }
+.clock-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-champagne-gold);
+  flex-shrink: 0;
+}
 
-  .tool-btn:active {
-    transform: scale(0.95);
-  }
+.clock-text {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
 
-  .tool-btn.icon-only {
-    padding: 5px;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    justify-content: center;
-  }
+/* --------------------------------------------------------------------------
+   4b. TOOLBAR (Floating Top Right)
+   -------------------------------------------------------------------------- */
+.signage-toolbar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-  .btn-icon {
-    width: 14px;
-    height: 14px;
-  }
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  background: rgba(25, 35, 28, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--color-champagne-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: all 0.25s var(--transition-smooth);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
 
-  /* Sound Visualizer Bars */
-  .sound-bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 2px;
-    height: 11px;
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .tool-btn {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
+}
 
-  .sound-bars .bar {
-    width: 2px;
-    background-color: var(--color-champagne-gold);
-    border-radius: 2px;
-    height: 3px;
-    transition: height 0.2s ease;
-  }
+.tool-btn:hover {
+  background: rgba(45, 60, 50, 0.88);
+  border-color: rgba(226, 204, 168, 0.4);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
 
-  /* Active playing animation on bars */
-  body.audio-playing .sound-bars .bar-1 {
-    animation: bounceBar 0.7s infinite alternate ease-in-out;
-  }
-  body.audio-playing .sound-bars .bar-2 {
-    animation: bounceBar 0.9s infinite alternate ease-in-out 0.2s;
-  }
-  body.audio-playing .sound-bars .bar-3 {
-    animation: bounceBar 0.6s infinite alternate ease-in-out 0.4s;
-  }
+.tool-btn:active {
+  transform: scale(0.95);
+}
 
-  @keyframes bounceBar {
-    0% { height: 3px; }
-    100% { height: 11px; }
-  }
+.tool-btn.icon-only {
+  padding: 6px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
 
-  /* ========================================================================
-     2. Top Bar & Company Status Pill
-     ======================================================================== */
+.btn-icon {
+  width: 15px;
+  height: 15px;
+}
+
+/* --------------------------------------------------------------------------
+   5. TOP BAR & COMPANY BADGE
+   -------------------------------------------------------------------------- */
+.top-bar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 640px) {
+  .signage-clock-widget {
+    top: 12px;
+    left: 12px;
+  }
+  .signage-toolbar {
+    top: 12px;
+    right: 12px;
+  }
   .top-bar {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 4px;
+    margin-top: 40px;
   }
+}
 
+.company-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(40, 50, 44, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--shadow-pill);
+  transition: transform 0.3s var(--transition-smooth);
+}
+
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .company-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding-block: 8px;
-    padding-inline: 16px;
-    border-radius: 9999px;
     background: rgba(48, 56, 50, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-pill);
-    transition: transform 0.3s var(--transition-smooth);
   }
+}
 
-  .company-badge:hover {
-    transform: translateY(-1px);
-    border-color: rgba(255, 255, 255, 0.22);
+.company-badge:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.badge-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.96);
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.badge-dot {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-gold {
+  background-color: #e5c3a3;
+  box-shadow: 0 0 6px rgba(229, 195, 163, 0.6);
+}
+
+.dot-green {
+  background-color: var(--color-online-green);
+  box-shadow: 0 0 8px rgba(94, 183, 132, 0.85);
+  animation: livePulse 2.4s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(94, 183, 132, 0.6);
   }
-
-  .badge-text {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.96);
-    white-space: nowrap;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  50% {
+    opacity: 0.8;
+    transform: scale(1.18);
+    box-shadow: 0 0 12px rgba(94, 183, 132, 0.95);
   }
+}
 
-  .badge-dot {
-    width: 6.5px;
-    height: 6.5px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+/* --------------------------------------------------------------------------
+   6. CENTER HERO: WELCOME CARD
+   -------------------------------------------------------------------------- */
+.hero-center {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  padding: 0 16px;
+}
 
-  .dot-gold {
-    background-color: #e5c3a3;
-    box-shadow: 0 0 6px rgba(229, 195, 163, 0.6);
-  }
+.welcome-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  
+  /* Fallback physical padding */
+  padding: 32px 26px 30px 26px;
+  
+  border-radius: 28px;
+  
+  /* Fallback opaque background for signage players without backdrop-filter */
+  background-color: rgba(20, 32, 25, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.4s var(--transition-smooth), border-color 0.4s ease;
+}
 
-  .dot-green {
-    background-color: var(--color-online-green);
-    box-shadow: 0 0 8px rgba(94, 183, 132, 0.85);
-    animation: livePulse 2.4s infinite ease-in-out;
-  }
-
-  @keyframes livePulse {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-      box-shadow: 0 0 6px rgba(94, 183, 132, 0.6);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scale(1.18);
-      box-shadow: 0 0 12px rgba(94, 183, 132, 0.95);
-    }
-  }
-
-  /* ========================================================================
-     3. Center Hero: Glassmorphism Welcome Card
-     ======================================================================== */
-  .hero-center {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-block: auto;
-  }
-
+/* Progressive enhancement: silky frosted glass when supported */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .welcome-card {
-    position: relative;
-    width: 100%;
-    max-width: min(92vw, 400px);
-    padding-block: 32px 30px;
-    padding-inline: 26px;
-    border-radius: 28px;
-    background: rgba(35, 48, 40, 0.40);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(24px) saturate(135%);
-    -webkit-backdrop-filter: blur(24px) saturate(135%);
-    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    transition: transform 0.4s var(--transition-smooth), border-color 0.4s ease;
+    background-color: rgba(35, 48, 40, 0.42);
+    backdrop-filter: blur(26px) saturate(135%);
+    -webkit-backdrop-filter: blur(26px) saturate(135%);
   }
+}
 
-  @media (min-width: 768px) {
-    .welcome-card {
-      max-width: 440px;
-      padding-block: 38px 36px;
-      padding-inline: 34px;
-    }
+@media (min-width: 768px) {
+  .welcome-card {
+    max-width: 440px;
+    padding: 38px 34px 36px 34px;
   }
+}
 
-  .welcome-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(226, 204, 168, 0.3);
-  }
+.welcome-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(226, 204, 168, 0.3);
+}
 
-  /* Card Logo Squircle Button */
-  .card-icon-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-block-end: 14px;
-    color: var(--color-champagne-gold);
-    transition: all 0.3s var(--transition-smooth);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  }
+/* Card Logo Squircle */
+.card-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+  color: var(--color-champagne-gold);
+  transition: all 0.3s var(--transition-smooth);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
 
-  .card-icon-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(226, 204, 168, 0.45);
-    transform: scale(1.06);
-    box-shadow: 0 0 16px rgba(226, 204, 168, 0.35);
-  }
+.card-icon-box:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(226, 204, 168, 0.35);
+  transform: scale(1.04);
+  box-shadow: 0 0 16px rgba(226, 204, 168, 0.25);
+}
 
-  .card-icon-btn:active {
-    transform: scale(0.95);
-  }
+.corrugated-logo {
+  width: 30px;
+  height: 30px;
+}
 
-  .corrugated-logo {
-    width: 30px;
-    height: 30px;
-  }
+/* Headings */
+.card-headings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
 
-  /* Headings */
-  .card-headings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
+.welcome-title {
+  font-size: 32px;
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
 
-  .welcome-title {
-    font-size: clamp(28px, 3.5vw, 36px);
-    font-weight: 700;
-    color: #e9d5be;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-  }
+.welcome-to {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #bca68d;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  letter-spacing: 0.02em;
+}
 
-  .welcome-to {
-    font-size: 13.5px;
-    font-weight: 400;
-    color: #bca68d;
-    margin-block: 4px 5px;
-    letter-spacing: 0.02em;
-  }
+.company-name {
+  font-size: 24px;
+  font-size: clamp(22px, 2.5vw, 26px);
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
 
-  .company-name {
-    font-size: clamp(22px, 2.5vw, 26px);
-    font-weight: 800;
-    color: var(--color-white);
-    letter-spacing: -0.015em;
-    line-height: 1.25;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  }
+/* Glowing Accent Horizontal Line */
+.card-divider {
+  width: 74px;
+  height: 1.5px;
+  margin-top: 16px;
+  margin-bottom: 14px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(215, 180, 145, 0.75) 50%, 
+    transparent 100%
+  );
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(215, 180, 145, 0.4);
+}
 
-  /* Glowing Accent Horizontal Line */
-  .card-divider {
-    width: 74px;
-    height: 1.5px;
-    margin-block: 16px 14px;
-    background: linear-gradient(
-      90deg, 
-      transparent 0%, 
-      rgba(215, 180, 145, 0.75) 50%, 
-      transparent 100%
-    );
-    border-radius: 9999px;
-    box-shadow: 0 0 8px rgba(215, 180, 145, 0.4);
-  }
+/* Industry & Location Tags */
+.industry-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-sage-green);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
 
-  /* Industry & Location Tags */
-  .industry-tag {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--color-sage-green);
-    text-transform: uppercase;
-    margin-block-end: 6px;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-  }
+.location-tag {
+  font-size: 13px;
+  font-weight: 400;
+  color: #c5d2c8;
+  letter-spacing: 0.01em;
+  opacity: 0.95;
+}
 
-  .location-tag {
-    font-size: 13px;
-    font-weight: 400;
-    color: #c5d2c8;
-    letter-spacing: 0.01em;
-    opacity: 0.95;
-  }
+/* Subtle Shimmer highlight across card */
+.card-shimmer {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 55%
+  );
+  pointer-events: none;
+  animation: shimmerPass 8s infinite ease-in-out;
+}
 
-  /* Shimmer Highlight across card */
-  .card-shimmer {
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      115deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.04) 45%,
-      rgba(255, 255, 255, 0.08) 50%,
-      transparent 55%
-    );
-    pointer-events: none;
-    animation: shimmerPass 8s infinite ease-in-out;
-  }
+@keyframes shimmerPass {
+  0%, 75% { left: -150%; }
+  100% { left: 150%; }
+}
 
-  @keyframes shimmerPass {
-    0%, 75% { left: -150%; }
-    100% { left: 150%; }
-  }
+/* --------------------------------------------------------------------------
+   7. BOTTOM BAR: DATE & ECO BADGES
+   -------------------------------------------------------------------------- */
+.bottom-bar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 0 16px;
+}
 
-  /* ========================================================================
-     4. Bottom Bar: Date & Eco Badges
-     ======================================================================== */
-  .bottom-bar {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
-  }
+.bottom-badge.date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7.5px 16px;
+  border-radius: 9999px;
+  background: rgba(30, 42, 35, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: var(--shadow-pill);
+  cursor: default;
+  transition: transform 0.25s var(--transition-smooth);
+}
 
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .bottom-badge.date-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding-block: 7.5px;
-    padding-inline: 16px;
-    border-radius: 9999px;
     background: rgba(38, 48, 42, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.11);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    box-shadow: var(--shadow-pill);
-    cursor: default;
-    transition: transform 0.25s var(--transition-smooth);
   }
+}
 
-  .bottom-badge.date-pill:hover {
-    transform: translateY(-1px);
-    border-color: rgba(226, 204, 168, 0.3);
-  }
+.bottom-badge.date-pill:hover {
+  transform: translateY(-1px);
+  border-color: rgba(226, 204, 168, 0.3);
+}
 
-  .badge-icon.icon-pin {
-    width: 14px;
-    height: 14px;
-    color: #dfbf9f;
-    flex-shrink: 0;
-  }
+.badge-icon.icon-pin {
+  width: 14px;
+  height: 14px;
+  color: #dfbf9f;
+  flex-shrink: 0;
+}
 
-  .date-text {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.10em;
-    color: rgba(255, 255, 255, 0.95);
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
+.date-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
 
-  /* Eco Industrial Badge */
-  .eco-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--color-sage-green);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-  }
+/* Eco Industrial Badge */
+.eco-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-sage-green);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
 
-  .eco-icon {
-    width: 13.5px;
-    height: 13.5px;
-    color: var(--color-sage-green);
-    flex-shrink: 0;
-  }
-
-  /* ========================================================================
-     5. Audio Toast Notification (Floating Action Prompt)
-     ======================================================================== */
-  .audio-toast {
-    position: absolute;
-    bottom: 92px;
-    left: 50%;
-    transform: translateX(-50%) translateY(0);
-    z-index: 30;
-    background: rgba(18, 30, 24, 0.90);
-    border: 1px solid rgba(226, 204, 168, 0.35);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: 7px 14px;
-    border-radius: 9999px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    pointer-events: auto;
-    animation: toastFloat 3.5s infinite ease-in-out;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    white-space: nowrap;
-  }
-
-  .audio-toast.hide {
-    opacity: 0;
-    transform: translateX(-50%) translateY(12px);
-    pointer-events: none;
-  }
-
-  .toast-content {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .toast-icon {
-    font-size: 13px;
-    animation: pulseIcon 1.5s infinite ease-in-out;
-  }
-
-  .toast-text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    line-height: 1.2;
-  }
-
-  .toast-text strong {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: var(--color-champagne-gold);
-    letter-spacing: 0.02em;
-  }
-
-  .toast-text span {
-    font-size: 9px;
-    color: rgba(255, 255, 255, 0.82);
-  }
-
-  @keyframes toastFloat {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-4px); }
-  }
-
-  @keyframes pulseIcon {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-  }
+.eco-icon {
+  width: 13.5px;
+  height: 13.5px;
+  color: var(--color-sage-green);
+  flex-shrink: 0;
 }

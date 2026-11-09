@@ -1,10 +1,11 @@
-import socket
 import http.server
 import socketserver
 import os
+import socket
 
 PORT = 7777
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+os.chdir(DIRECTORY)
 
 def get_network_ips():
     ips = []
@@ -17,20 +18,20 @@ def get_network_ips():
         pass
     return ips
 
-class SignageHTTPHandler(http.server.SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=DIRECTORY, **kwargs)
-
-    def end_headers(self):
-        # Enable CORS and disable restrictive caching for kiosk usage
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Cache-Control', 'no-cache, must-revalidate')
-        super().end_headers()
+# Configure standard handler with explicit UTF-8 and correct MIME types for digital signage
+Handler = http.server.SimpleHTTPRequestHandler
+Handler.extensions_map.update({
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.svg': 'image/svg+xml',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.html': 'text/html; charset=utf-8',
+})
 
 if __name__ == '__main__':
-    # Allow socket address reuse so restarting doesn't hit TIME_WAIT
     socketserver.TCPServer.allow_reuse_address = True
-    
     ips = get_network_ips()
     print("=" * 68)
     print("     PT SUMATERA KEMASINDO - DIGITAL SIGNAGE WEB SERVER")
@@ -44,7 +45,7 @@ if __name__ == '__main__':
     print("\nTekan Ctrl+C untuk menghentikan server.")
     print("=" * 68 + "\n")
 
-    with socketserver.TCPServer(("0.0.0.0", PORT), SignageHTTPHandler) as httpd:
+    with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

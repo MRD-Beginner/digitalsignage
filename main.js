@@ -4,23 +4,44 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Live Date Formatter (Defaults to Indonesian format "PEKANBARU, 07 NOVEMBER 2026")
+  // Helper to obtain current Date shifted accurately to WIB (UTC+7)
+  const getWIBDate = () => {
+    const now = new Date();
+    const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+    return new Date(utcTime + (7 * 3600000));
+  };
+
+  // 1. Live Digital Clock (Floating Top Left: WIB / UTC+7)
+  const liveClock = document.getElementById('liveClock');
+  const updateLiveClock = () => {
+    if (!liveClock) return;
+    const wib = getWIBDate();
+    const hours = String(wib.getHours()).padStart(2, '0');
+    const minutes = String(wib.getMinutes()).padStart(2, '0');
+    const seconds = String(wib.getSeconds()).padStart(2, '0');
+    liveClock.textContent = `${hours}:${minutes}:${seconds} WIB`;
+  };
+  updateLiveClock();
+  setInterval(updateLiveClock, 1000);
+
+  // 2. Live Date Formatter (Defaults to Indonesian format "PEKANBARU, 07 NOVEMBER 2026")
   const dateDisplay = document.getElementById('dateDisplay');
   const updateDate = () => {
     if (!dateDisplay) return;
-    const now = new Date();
+    const wib = getWIBDate();
     const months = [
       'JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI',
       'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'
     ];
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = months[now.getMonth()];
-    const year = now.getFullYear();
+    const day = String(wib.getDate()).padStart(2, '0');
+    const month = months[wib.getMonth()];
+    const year = wib.getFullYear();
     
     // Set formatted text
     dateDisplay.textContent = `PEKANBARU, ${day} ${month} ${year}`;
   };
   updateDate();
+  setInterval(updateDate, 30000);
 
   // 2. Fullscreen Digital Signage Kiosk Mode
   const btnFullscreen = document.getElementById('btnFullscreen');
@@ -59,10 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const nextBg = bgModes[currentBgIdx];
       document.body.setAttribute('data-bg', nextBg.id);
       btnSwitchBg.title = `${nextBg.label} (Klik untuk ganti)`;
-      
-      if (window.audioController) {
-        window.audioController.playClickSfx();
-      }
     });
   }
 
@@ -90,24 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Keyboard Shortcuts for Digital Signage
+  // 5. Keyboard Shortcuts for Digital Signage (F for Fullscreen Kiosk Mode)
   window.addEventListener('keydown', (e) => {
-    // 'F' key toggles Fullscreen
     if (e.key === 'f' || e.key === 'F') {
       toggleFullscreen();
-    }
-    // 'M' key toggles Audio
-    if (e.key === 'm' || e.key === 'M') {
-      if (window.audioController) {
-        window.audioController.toggleAudio();
-      }
-    }
-    // 'Space' key triggers chime
-    if (e.code === 'Space') {
-      e.preventDefault();
-      if (window.audioController) {
-        window.audioController.playChime(true);
-      }
     }
   });
 });
