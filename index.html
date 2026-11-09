@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PT Sumatera Kemasindo - Digital Signage & Welcome Display</title>
+  
+  <!-- Favicon / Vector Logo -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='14' r='3.5' fill='%23e2cca8'/><path d='M10 26 C 14 20, 18 20, 21 24 C 24 28, 28 28, 31 24 C 34 20, 38 20, 41 24' stroke='%23e2cca8' stroke-width='3' stroke-linecap='round' fill='none'/></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="building">
+
+  <!-- Ambient Audio Elements (Hidden) -->
+  <div class="audio-assets-hidden" hidden aria-hidden="true">
+    <audio id="audioWelcome" src="assets/welcome-chime.wav" preload="auto"></audio>
+    <audio id="audioClick" src="assets/ui-click.wav" preload="auto"></audio>
+    <audio id="audioHover" src="assets/ui-hover.wav" preload="auto"></audio>
+  </div>
+
+  <!-- Signage Container Frame -->
+  <div class="signage-wrapper">
+    <main class="signage-screen" id="mainScreen">
+
+      <!-- Background Ambient Lighting / Vignette -->
+      <div class="bg-gradient-overlay" aria-hidden="true"></div>
+      <div class="spotlight-top" aria-hidden="true"></div>
+
+      <!-- Quick Action Controls (Floating Top Right: Audio, Fullscreen, BG Switcher) -->
+      <aside class="signage-toolbar" aria-label="Kontrol Tampilan">
+        <button class="tool-btn" id="btnAudioToggle" aria-label="Toggle Suara" title="Aktifkan / Matikan Audio">
+          <div class="sound-bars" aria-hidden="true">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+          </div>
+          <span class="tool-label" id="audioLabel">Muted</span>
+        </button>
+
+        <button class="tool-btn icon-only" id="btnChimeReplay" aria-label="Putar Ulang Chime" title="Putar Suara Sambutan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </button>
+
+        <button class="tool-btn icon-only" id="btnFullscreen" aria-label="Layar Penuh" title="Mode Layar Penuh (Signage Kiosk)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+        </button>
+
+        <button class="tool-btn icon-only" id="btnSwitchBg" aria-label="Ganti Gambar Background" title="Ganti Latar (HD 4K / Original)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+            <circle cx="9" cy="9" r="2"/>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+          </svg>
+        </button>
+      </aside>
+
+      <!-- TOP BADGE: PT. SUMATERA KEMASINDO -->
+      <header class="top-bar">
+        <div class="company-badge" role="status" aria-label="Status PT. Sumatera Kemasindo">
+          <span class="badge-dot dot-gold" aria-hidden="true"></span>
+          <span class="badge-text">PT. SUMATERA KEMASINDO</span>
+          <span class="badge-dot dot-green" aria-hidden="true"></span>
+        </div>
+      </header>
+
+      <!-- CENTER HERO: Glassmorphism Welcome Card -->
+      <section class="hero-center">
+        <article class="welcome-card" id="welcomeCard">
+          
+          <!-- Card Icon: Corrugated Fluting Wave + Sun Dot -->
+          <button class="card-icon-btn" id="cardLogoBtn" aria-label="Logo PT. Sumatera Kemasindo (Klik untuk Bunyi Chime)" title="Klik untuk memutar suara sambutan">
+            <svg class="corrugated-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Upper Dot -->
+              <circle cx="24" cy="14" r="2.8" fill="currentColor"/>
+              <!-- Corrugated Fluting Sine Wave -->
+              <path d="M11 25.5 C14.5 20.5, 18.5 20.5, 21.5 25 C24.5 29.5, 28.5 29.5, 31.5 25 C34.5 20.5, 38.5 20.5, 41.5 25.5" 
+                    stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <!-- Headings Hierarchy -->
+          <hgroup class="card-headings">
+            <h1 class="welcome-title">Welcome</h1>
+            <p class="welcome-to">to</p>
+            <p class="company-name">PT Sumatera Kemasindo</p>
+          </hgroup>
+
+          <!-- Glowing Gold Accent Divider -->
+          <div class="card-divider" aria-hidden="true"></div>
+
+          <!-- Industry Tag & Location -->
+          <p class="industry-tag">CORRUGATED PACKAGING INDUSTRY</p>
+          <p class="location-tag">Pekanbaru, Riau, Indonesia</p>
+          
+          <!-- Subtle interactive shimmer effect -->
+          <div class="card-shimmer" aria-hidden="true"></div>
+        </article>
+      </section>
+
+      <!-- BOTTOM BADGES: Location Date & Eco Manufacturing -->
+      <footer class="bottom-bar">
+        <!-- Date Badge with Map Pin -->
+        <div class="bottom-badge date-pill" id="dateBadge" title="Tanggal & Lokasi Operasional">
+          <svg class="badge-icon icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+            <circle cx="12" cy="10" r="3" fill="currentColor"/>
+          </svg>
+          <time class="date-text" id="dateDisplay">PEKANBARU, 07 NOVEMBER 2026</time>
+        </div>
+
+        <!-- Eco Manufacturing Tag with Shield Rosette -->
+        <div class="eco-tag" aria-label="Komitmen Lingkungan: Eco-Industrial Manufacturing">
+          <svg class="eco-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l2.4 2.2 3.2-.5 1.4 2.9 3 1.2-.4 3.2 2 2.5-2 2.5.4 3.2-3 1.2-1.4 2.9-3.2-.5L12 22l-2.4-2.2-3.2.5-1.4-2.9-3-1.2.4-3.2-2-2.5 2-2.5-.4-3.2 3-1.2 1.4-2.9 3.2.5L12 2z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="eco-text">ECO-INDUSTRIAL MANUFACTURING</span>
+        </div>
+      </footer>
+
+      <!-- Initial Audio Activation Prompt Toast -->
+      <div class="audio-toast" id="audioToast" role="alert">
+        <div class="toast-content">
+          <div class="toast-icon">🔊</div>
+          <div class="toast-text">
+            <strong>Klik Di Mana Saja</strong>
+            <span>untuk mengaktifkan suara penyambutan & suasana</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
