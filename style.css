@@ -388,17 +388,17 @@ body[data-bg="building"] .spotlight-top {
 .welcome-card {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 520px;
   
   /* Fallback physical padding */
-  padding: 32px 26px 30px 26px;
+  padding: 38px 28px 36px 28px;
   
-  border-radius: 28px;
+  border-radius: 30px;
   
   /* Fallback opaque background for signage players without backdrop-filter */
-  background-color: rgba(20, 32, 25, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  background-color: rgba(20, 32, 25, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.18);
   
   display: flex;
   flex-direction: column;
@@ -411,22 +411,22 @@ body[data-bg="building"] .spotlight-top {
 /* Progressive enhancement: silky frosted glass when supported */
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .welcome-card {
-    background-color: rgba(35, 48, 40, 0.42);
-    backdrop-filter: blur(26px) saturate(135%);
-    -webkit-backdrop-filter: blur(26px) saturate(135%);
+    background-color: rgba(30, 44, 36, 0.48);
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
   }
 }
 
 @media (min-width: 768px) {
   .welcome-card {
-    max-width: 440px;
-    padding: 38px 34px 36px 34px;
+    max-width: 620px;
+    padding: 52px 48px 50px 48px;
   }
 }
 
 .welcome-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(226, 204, 168, 0.3);
+  border-color: rgba(226, 204, 168, 0.35);
 }
 
 /* Card Logo Squircle */
@@ -467,13 +467,64 @@ body[data-bg="building"] .spotlight-top {
 }
 
 .welcome-title {
-  font-size: 32px;
-  font-size: clamp(28px, 3.5vw, 36px);
+  font-size: 34px;
+  font-size: clamp(30px, 3.8vw, 44px);
   font-weight: 700;
   color: var(--color-white);
   letter-spacing: -0.01em;
   line-height: 1.15;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+  margin-bottom: 12px;
+}
+
+.guest-names {
+  font-size: 28px;
+  font-size: clamp(25px, 3.2vw, 34px);
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+.guest-origin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.from-text {
+  font-size: 19px;
+  font-size: clamp(16px, 1.8vw, 21px);
+  font-weight: 600;
+  color: var(--color-champagne-light);
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.apical-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 8px 26px 9px 26px;
+  border-radius: 9999px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.25);
+  transition: transform 0.25s var(--transition-smooth);
+}
+
+.apical-logo-badge:hover {
+  transform: scale(1.03);
+}
+
+.apical-logo-img {
+  height: 38px;
+  height: clamp(32px, 3.8vw, 44px);
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .welcome-to {
