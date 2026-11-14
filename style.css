@@ -468,41 +468,62 @@ body[data-bg="building"] .spotlight-top {
 }
 
 .welcome-title {
-  font-size: 42px;
-  font-size: clamp(34px, 4.4vw, 52px);
-  font-weight: 700;
+  font-size: 54px;
+  font-size: clamp(40px, 5vw, 62px);
+  font-weight: 800;
   color: var(--color-white);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   line-height: 1.15;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
-  margin-bottom: 14px;
+  text-shadow: 0 3px 20px rgba(0, 0, 0, 0.65);
+  margin-bottom: 18px;
 }
 
-.guest-names {
-  font-size: 34px;
-  font-size: clamp(28px, 3.6vw, 42px);
+.guest-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+}
+
+.guest-name {
+  font-size: 38px;
+  font-size: clamp(30px, 3.6vw, 46px);
   font-weight: 800;
   color: var(--color-white);
   letter-spacing: -0.015em;
-  line-height: 1.25;
+  line-height: 1.22;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
-  text-wrap: balance;
+  white-space: nowrap;
+}
+
+.guest-ampersand {
+  font-size: 28px;
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 600;
+  color: var(--color-champagne-gold);
+  line-height: 1;
+  margin: 3px 0;
+  text-shadow: 0 1px 8px rgba(226, 204, 168, 0.45);
 }
 
 .guest-origin {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-top: 26px;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .from-text {
-  font-size: 22px;
+  font-size: 24px;
   font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 600;
+  font-style: italic;
   color: var(--color-champagne-light);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
 }
 
@@ -511,7 +532,7 @@ body[data-bg="building"] .spotlight-top {
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  padding: 10px 30px 11px 30px;
+  padding: 12px 38px 13px 38px;
   border-radius: 9999px;
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3);
   transition: transform 0.25s var(--transition-smooth);
@@ -522,8 +543,8 @@ body[data-bg="building"] .spotlight-top {
 }
 
 .apical-logo-img {
-  height: 44px;
-  height: clamp(36px, 4.4vw, 52px);
+  height: 50px;
+  height: clamp(40px, 4.6vw, 58px);
   width: auto;
   display: block;
   object-fit: contain;
@@ -758,50 +779,72 @@ body[data-bg="building"] .spotlight-top {
 
   /* Center Welcome Card (Prominent & Majestic on 1080 x 1920 Kiosk) */
   .welcome-card {
-    max-width: 880px;
-    width: 90%;
-    padding: 82px 64px 78px 64px;
-    border-radius: 44px;
+    max-width: 900px;
+    width: 92%;
+    padding: 82px 54px 76px 54px;
+    border-radius: 46px;
     border-width: 1.5px;
     box-shadow: 0 35px 95px -15px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.22);
   }
 
   .welcome-title {
-    font-size: 56px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    margin-bottom: 22px;
-    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.65);
+    font-size: 82px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 26px;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
   }
 
-  .guest-names {
-    font-size: 46px;
+  .guest-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .guest-name {
+    font-size: 62px;
     font-weight: 800;
     letter-spacing: -0.015em;
     line-height: 1.25;
-    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
-    text-wrap: balance;
+    text-shadow: 0 3px 22px rgba(0, 0, 0, 0.75);
+    white-space: nowrap;
+  }
+
+  .guest-ampersand {
+    font-size: 46px;
+    font-weight: 600;
+    color: var(--color-champagne-gold);
+    line-height: 1;
+    margin: 5px 0;
+    text-shadow: 0 2px 12px rgba(226, 204, 168, 0.5);
   }
 
   .guest-origin {
-    gap: 22px;
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 38px;
   }
 
   .from-text {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.08em;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
   }
 
   .apical-logo-badge {
-    padding: 14px 42px 15px 42px;
+    padding: 16px 52px 17px 52px;
     border-radius: 9999px;
-    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.35);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(255, 255, 255, 0.35);
   }
 
   .apical-logo-img {
-    height: 56px;
+    height: 68px;
   }
 
   /* Bottom Bar (Enlarged for 1080x1920 Kiosk Display) */
