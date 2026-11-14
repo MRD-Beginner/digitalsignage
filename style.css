@@ -288,7 +288,7 @@ body[data-bg="building"] .spotlight-top {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 @media (max-width: 640px) {
@@ -301,7 +301,7 @@ body[data-bg="building"] .spotlight-top {
     right: 12px;
   }
   .top-bar {
-    margin-top: 40px;
+    margin-top: 48px;
   }
 }
 
@@ -309,18 +309,18 @@ body[data-bg="building"] .spotlight-top {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 8px 18px;
+  gap: 12px;
+  padding: 10px 24px;
   border-radius: 9999px;
-  background: rgba(40, 50, 44, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(40, 50, 44, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: var(--shadow-pill);
   transition: transform 0.3s var(--transition-smooth);
 }
 
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .company-badge {
-    background: rgba(48, 56, 50, 0.72);
+    background: rgba(48, 56, 50, 0.78);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
@@ -328,21 +328,22 @@ body[data-bg="building"] .spotlight-top {
 
 .company-badge:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .badge-text {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.96);
+  font-size: 15px;
+  font-size: clamp(13px, 1.3vw, 17px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.98);
   white-space: nowrap;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
 }
 
 .badge-dot {
-  width: 6.5px;
-  height: 6.5px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -388,17 +389,17 @@ body[data-bg="building"] .spotlight-top {
 .welcome-card {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 620px;
   
   /* Fallback physical padding */
-  padding: 38px 28px 36px 28px;
+  padding: 44px 34px 42px 34px;
   
-  border-radius: 30px;
+  border-radius: 34px;
   
   /* Fallback opaque background for signage players without backdrop-filter */
-  background-color: rgba(20, 32, 25, 0.86);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  background-color: rgba(20, 32, 25, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 28px 70px -10px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   
   display: flex;
   flex-direction: column;
@@ -411,22 +412,22 @@ body[data-bg="building"] .spotlight-top {
 /* Progressive enhancement: silky frosted glass when supported */
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .welcome-card {
-    background-color: rgba(30, 44, 36, 0.48);
-    backdrop-filter: blur(28px) saturate(140%);
-    -webkit-backdrop-filter: blur(28px) saturate(140%);
+    background-color: rgba(30, 44, 36, 0.52);
+    backdrop-filter: blur(30px) saturate(145%);
+    -webkit-backdrop-filter: blur(30px) saturate(145%);
   }
 }
 
 @media (min-width: 768px) {
   .welcome-card {
-    max-width: 620px;
-    padding: 52px 48px 50px 48px;
+    max-width: 740px;
+    padding: 60px 54px 58px 54px;
   }
 }
 
 .welcome-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(226, 204, 168, 0.35);
+  border-color: rgba(226, 204, 168, 0.38);
 }
 
 /* Card Logo Squircle */
@@ -467,41 +468,42 @@ body[data-bg="building"] .spotlight-top {
 }
 
 .welcome-title {
-  font-size: 34px;
-  font-size: clamp(30px, 3.8vw, 44px);
+  font-size: 42px;
+  font-size: clamp(34px, 4.4vw, 52px);
   font-weight: 700;
   color: var(--color-white);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   line-height: 1.15;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
-  margin-bottom: 12px;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+  margin-bottom: 14px;
 }
 
 .guest-names {
-  font-size: 28px;
-  font-size: clamp(25px, 3.2vw, 34px);
+  font-size: 34px;
+  font-size: clamp(28px, 3.6vw, 42px);
   font-weight: 800;
   color: var(--color-white);
   letter-spacing: -0.015em;
   line-height: 1.25;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  text-wrap: balance;
 }
 
 .guest-origin {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-top: 22px;
+  gap: 16px;
+  margin-top: 26px;
 }
 
 .from-text {
-  font-size: 19px;
-  font-size: clamp(16px, 1.8vw, 21px);
+  font-size: 22px;
+  font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 600;
   color: var(--color-champagne-light);
   letter-spacing: 0.04em;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
 }
 
 .apical-logo-badge {
@@ -509,9 +511,9 @@ body[data-bg="building"] .spotlight-top {
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  padding: 8px 26px 9px 26px;
+  padding: 10px 30px 11px 30px;
   border-radius: 9999px;
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3);
   transition: transform 0.25s var(--transition-smooth);
 }
 
@@ -520,8 +522,8 @@ body[data-bg="building"] .spotlight-top {
 }
 
 .apical-logo-img {
-  height: 38px;
-  height: clamp(32px, 3.8vw, 44px);
+  height: 44px;
+  height: clamp(36px, 4.4vw, 52px);
   width: auto;
   display: block;
   object-fit: contain;
@@ -679,4 +681,159 @@ body[data-bg="building"] .spotlight-top {
   height: 13.5px;
   color: var(--color-sage-green);
   flex-shrink: 0;
+}
+
+/* ==========================================================================
+   8. PORTRAIT / VERTICAL DIGITAL SIGNAGE DISPLAY (1080 x 1920 Kiosk / Totem)
+   Specifically engineered for standing commercial signage displays (Full HD 9:16)
+   ========================================================================== */
+@media (min-width: 700px) and (orientation: portrait), (min-width: 900px) and (min-height: 1400px) {
+  .signage-screen {
+    padding-block: 48px;
+    padding-inline: 42px;
+    background-position: center 30%;
+  }
+
+  /* Floating Clock Widget (Top-Left) */
+  .signage-clock-widget {
+    top: 30px;
+    left: 30px;
+  }
+
+  .clock-pill {
+    padding: 10px 22px;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  .clock-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .clock-text {
+    font-size: 16px;
+    letter-spacing: 0.06em;
+  }
+
+  /* Floating Toolbar (Top-Right) */
+  .signage-toolbar {
+    top: 30px;
+    right: 30px;
+    gap: 10px;
+  }
+
+  .tool-btn.icon-only {
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Top Company Badge (PT. SUMATERA KEMASINDO) */
+  .top-bar {
+    margin-top: 30px;
+  }
+
+  .company-badge {
+    padding: 14px 38px;
+    gap: 14px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  .badge-text {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+  }
+
+  .badge-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Center Welcome Card (Prominent & Majestic on 1080 x 1920 Kiosk) */
+  .welcome-card {
+    max-width: 880px;
+    width: 90%;
+    padding: 82px 64px 78px 64px;
+    border-radius: 44px;
+    border-width: 1.5px;
+    box-shadow: 0 35px 95px -15px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  }
+
+  .welcome-title {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 22px;
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.65);
+  }
+
+  .guest-names {
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
+    text-wrap: balance;
+  }
+
+  .guest-origin {
+    gap: 22px;
+    margin-top: 40px;
+  }
+
+  .from-text {
+    font-size: 28px;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .apical-logo-badge {
+    padding: 14px 42px 15px 42px;
+    border-radius: 9999px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.35);
+  }
+
+  .apical-logo-img {
+    height: 56px;
+  }
+
+  /* Bottom Bar */
+  .bottom-bar {
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .bottom-badge.date-pill {
+    padding: 12px 28px;
+    gap: 10px;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4);
+  }
+
+  .badge-icon.icon-pin {
+    width: 18px;
+    height: 18px;
+  }
+
+  .date-text {
+    font-size: 15px;
+    letter-spacing: 0.14em;
+  }
+
+  .eco-tag {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    gap: 8px;
+  }
+
+  .eco-icon {
+    width: 16px;
+    height: 16px;
+  }
 }
